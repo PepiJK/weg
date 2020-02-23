@@ -1,0 +1,33 @@
+<h1>Detail</h1>
+<table class="striped">
+  <tbody>
+  <tr>
+    <td><b>Id</b></td>
+    <td>{{wine.id}}</td>
+  </tr>
+  <tr>
+    <td><b>Titel</b></td>
+    <td>{{wine.title}}</td>
+  </tr>
+  <tr>
+    <td><b>Winzer</b></td>
+    <td>{{wine.producer}}</td>
+  </tr>
+  <tr>
+    <td><b>Typ</b></td>
+    <td>{{wine.type}}</td>
+  </tr>
+  <tr>
+    <td><b>Ernte</b></td>
+    <td>{{wine.harvest | date : 'd. MMMM yyyy'}}</td>
+  </tr>
+  <tr>
+    <td><b>Preis</b></td>
+    <td>{{wine.price | currency : 'EUR'}}</td>
+  </tr>
+  <tr>
+    <td><b>Beschreibung</b></td>
+    <td>{{wine.description}}</td>
+  </tr>
+  </tbody>
+</table>

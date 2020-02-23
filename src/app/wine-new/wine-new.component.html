@@ -1,0 +1,41 @@
+<h1>Neu</h1>
+<div class="row">
+  <form #wineForm="ngForm" (ngSubmit)="onSubmit();" class="col s12">
+    <div class="row">
+      <div class="input-field col s12 m6">
+        <input #input id="title" type="text" class="validate" required [(ngModel)]="wine.title" name="title">
+        <label for="title">Titel</label>
+      </div>
+      <div class="input-field col s12 m6">
+        <input #input id="producer" type="text" class="validate" required [(ngModel)]="wine.producer" name="producer">
+        <label for="producer">Winzer</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12 m4">
+        <input #input id="type" type="text" class="validate" required [(ngModel)]="wine.type" name="type">
+        <label for="type">Typ</label>
+      </div>
+      <div class="input-field col s12 m4">
+        <input #input id="harvest" type="date" class="validate" required [(ngModel)]="wine.harvest"
+               name="harvest">
+        <label for="harvest" class="active">Ernte</label>
+      </div>
+      <div class="input-field col s12 m4">
+        <input #input id="price" type="number" min="0" step="0.01" class="validate" required [(ngModel)]="wine.price"
+               name="price">
+        <label for="price">Preis</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea #input id="description" class="materialize-textarea" [(ngModel)]="wine.description"
+                  name="description">
+        </textarea>
+        <label for="description">Beschreibung</label>
+      </div>
+    </div>
+    <button type="submit" class="waves-effect waves-light btn" [disabled]="!wineForm.valid">Erstellen</button>
+  </form>
+</div>
+
