@@ -28,11 +28,11 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/materialize-css/sass/materialize.scss",
+              "src/mytheme.scss",
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/materialize-css/dist/js/materialize.min.js"
+
             ]
           },
           "configurations": {

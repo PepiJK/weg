@@ -9,7 +9,13 @@ import {FooterComponent} from './footer/footer.component';
 import {ServicesModule} from "./services/services.module";
 import {WineDetailComponent} from './wine-detail/wine-detail.component';
 import {WineNewComponent} from './wine-new/wine-new.component';
-import {FormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatCardModule} from "@angular/material/card";
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,7 +30,13 @@ import {FormsModule} from "@angular/forms";
     BrowserModule,
     AppRoutingModule,
     ServicesModule.forRoot(),
-    FormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

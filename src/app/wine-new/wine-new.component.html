@@ -1,41 +1,63 @@
-<h1>Neu</h1>
-<div class="row">
-  <form #wineForm="ngForm" (ngSubmit)="onSubmit();" class="col s12">
-    <div class="row">
-      <div class="input-field col s12 m6">
-        <input #input id="title" type="text" class="validate" required [(ngModel)]="wine.title" name="title">
-        <label for="title">Titel</label>
+<mat-card class="wv-card">
+  <mat-card-header>
+    <mat-card-title><h1 class="wv-card-h1">Neu</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="row">
+    <form class="col s12" [formGroup]="wineForm" #formDirective="ngForm"
+          (ngSubmit)="onSubmit(); wineForm.reset(); formDirective.resetForm();">
+      <div class="row">
+        <mat-form-field class="col s12 m6">
+          <mat-label>Titel</mat-label>
+          <input matInput required formControlName="title">
+          <mat-error *ngIf="wineForm.controls.price.invalid">Titel ist ein
+            Pflichtfeld
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col s12 m6">
+          <mat-label>Winzer</mat-label>
+          <input matInput required formControlName="producer">
+          <mat-error *ngIf="wineForm.controls.price.invalid">Winzer ist ein
+            Pflichtfeld
+          </mat-error>
+        </mat-form-field>
       </div>
-      <div class="input-field col s12 m6">
-        <input #input id="producer" type="text" class="validate" required [(ngModel)]="wine.producer" name="producer">
-        <label for="producer">Winzer</label>
+      <div class="row">
+        <mat-form-field class="col s12 m4">
+          <mat-label>Typ</mat-label>
+          <input matInput required formControlName="type">
+          <mat-error *ngIf="wineForm.controls.price.invalid">Typ ist ein
+            Pflichtfeld
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col s12 m4">
+          <mat-label>Ernte</mat-label>
+          <input matInput [matDatepicker]="picker" required formControlName="harvest">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="wineForm.controls.price.invalid">Ernte ist ein
+            Pflichtfeld und muss ein gültiges Datum sein
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col s12 m4">
+          <mat-label>Preis</mat-label>
+          <input type="number" min="0" step="0.01" matInput required formControlName="price">
+          <mat-error *ngIf="wineForm.controls.price.invalid">Preis ist ein
+            Pflichtfeld und muss eine gültige Zahl sein
+          </mat-error>
+        </mat-form-field>
       </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12 m4">
-        <input #input id="type" type="text" class="validate" required [(ngModel)]="wine.type" name="type">
-        <label for="type">Typ</label>
+      <div class="row">
+        <mat-form-field class="col s12">
+          <mat-label>Beschreibung</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
       </div>
-      <div class="input-field col s12 m4">
-        <input #input id="harvest" type="date" class="validate" required [(ngModel)]="wine.harvest"
-               name="harvest">
-        <label for="harvest" class="active">Ernte</label>
-      </div>
-      <div class="input-field col s12 m4">
-        <input #input id="price" type="number" min="0" step="0.01" class="validate" required [(ngModel)]="wine.price"
-               name="price">
-        <label for="price">Preis</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <textarea #input id="description" class="materialize-textarea" [(ngModel)]="wine.description"
-                  name="description">
-        </textarea>
-        <label for="description">Beschreibung</label>
-      </div>
-    </div>
-    <button type="submit" class="waves-effect waves-light btn" [disabled]="!wineForm.valid">Erstellen</button>
-  </form>
-</div>
+      <mat-card-actions>
+        <button type="submit" [disabled]="!wineForm.valid" mat-raised-button>Erstellen</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
 

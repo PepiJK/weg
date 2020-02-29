@@ -1,8 +1,6 @@
-import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {WineRepository} from "../services/wine-repository.service";
-import {Wine} from "../models/wine";
-
-declare var M;
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-wine-new',
@@ -11,29 +9,25 @@ declare var M;
 })
 
 export class WineNewComponent implements OnInit {
-  @ViewChildren("input") inputs: QueryList<any>;
-  wine: Wine = new Wine();
+  wineForm: FormGroup;
 
-  constructor(private wineRepository: WineRepository) {
+  constructor(private wineRepository: WineRepository, private fb: FormBuilder) {
+    this.wineForm = this.fb.group({
+      title: ['', Validators.required],
+      producer: ['', Validators.required],
+      type: ['', Validators.required],
+      harvest: ['', Validators.required],
+      price: ['', Validators.required],
+      description: ['']
+    });
+
   }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    // add wine
-    this.wineRepository.addToBegin(this.wine);
-
-    // reset materialize form inputs
-    this.inputs.toArray().forEach(input => {
-      input.nativeElement.value = '';
-      input.nativeElement.classList.remove('valid', 'ng-untouched,', 'ng-pristine', 'ng-invalid', 'ng-valid', 'ng-touched', 'ng-dirty');
-      if (input.nativeElement.id !== 'harvest') input.nativeElement.nextElementSibling.classList.remove('active');
-      if (input.nativeElement.id === 'description') input.nativeElement.style.height = '44px';
-    });
-
-    // show success message
-    M.toast({html: 'Wein hinzugefügt!'})
+    this.wineRepository.addToBegin(this.wineForm.value);
   }
 
 }
