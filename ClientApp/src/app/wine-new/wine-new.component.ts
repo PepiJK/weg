@@ -27,7 +27,7 @@ export class WineNewComponent implements OnInit {
   }
 
   onSubmit() {
-    this.wineRepository.addToBegin(this.wineForm.value);
+    this.wineRepository.add(this.wineForm.value).subscribe();
   }
 
 }

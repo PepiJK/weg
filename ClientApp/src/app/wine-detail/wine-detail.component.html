@@ -1,5 +1,5 @@
 <h1>Detail</h1>
-<table class="striped">
+<table *ngIf="wine$ | async as wine" class="striped">
   <tbody>
   <tr>
     <td><b>Id</b></td>

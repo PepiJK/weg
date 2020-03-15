@@ -25,7 +25,7 @@ describe('WineRepositoryService', () => {
   });
 
   it('should add new element to the beginning of the observable array', () => {
-    service.addToBegin(wine);
+    service.add(wine);
     service.wines$.subscribe(result => expect(result.length).toBe(6));
     service.wines$.subscribe(result => expect(result[0]).toEqual(wine));
   });
