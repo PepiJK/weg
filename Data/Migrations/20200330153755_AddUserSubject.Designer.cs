@@ -3,14 +3,16 @@ using System;
 using Bif4.Koch.WeinVerwaltung.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bif4.Koch.WeinVerwaltung.Migrations
 {
     [DbContext(typeof(WeinVerwaltungContext))]
-    partial class WeinVerwaltungContextModelSnapshot : ModelSnapshot
+    [Migration("20200330153755_AddUserSubject")]
+    partial class AddUserSubject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,13 +27,7 @@ namespace Bif4.Koch.WeinVerwaltung.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("Harvest")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")

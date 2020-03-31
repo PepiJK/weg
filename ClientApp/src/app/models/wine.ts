@@ -5,5 +5,8 @@ export class Wine {
   type: string;
   harvest: Date;
   price: number;
+  userSubject: string;
+  name: string;
+  email: string;
   description: string;
 }

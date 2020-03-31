@@ -15,11 +15,14 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   MatMomentDateModule
 } from "@angular/material-moment-adapter";
+import {OAuthModule} from "angular-oauth2-oidc";
+import { LoginComponent } from './login/login.component';
+import {AuthInterceptor} from "../auth.interceptor";
 
 
 @NgModule({
@@ -29,7 +32,8 @@ import {
     WineListComponent,
     FooterComponent,
     WineDetailComponent,
-    WineNewComponent
+    WineNewComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -42,10 +46,12 @@ import {
     MatButtonModule,
     MatInputModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    OAuthModule.forRoot()
   ],
   providers: [
-    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

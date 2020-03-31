@@ -3,14 +3,16 @@ using System;
 using Bif4.Koch.WeinVerwaltung.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bif4.Koch.WeinVerwaltung.Migrations
 {
     [DbContext(typeof(WeinVerwaltungContext))]
-    partial class WeinVerwaltungContextModelSnapshot : ModelSnapshot
+    [Migration("20200331100924_AddedEmailName")]
+    partial class AddedEmailName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

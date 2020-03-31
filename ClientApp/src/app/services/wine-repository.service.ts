@@ -4,13 +4,14 @@ import {Subject} from "rxjs";
 import {repeatWhen, tap} from "rxjs/operators";
 import {BASE_URL} from 'src/baseUrl';
 import {HttpClient} from "@angular/common/http";
+import {OAuthService} from "angular-oauth2-oidc";
 
 @Injectable()
 
 export class WineRepository {
   private refreshSubject = new Subject<any>();
 
-  constructor(private http: HttpClient, @Inject(BASE_URL) private baseUrl: string) {
+  constructor(private http: HttpClient, @Inject(BASE_URL) private baseUrl: string, private oAuthService: OAuthService) {
   }
 
   public get wines$() {

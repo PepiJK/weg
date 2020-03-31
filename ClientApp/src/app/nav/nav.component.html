@@ -6,7 +6,8 @@
     </a>
     <ul id="nav-mobile" class="right">
       <li routerLinkActive="active"><a routerLink="list">Liste</a></li>
-      <li routerLinkActive="active"><a routerLink="new">Neu</a></li>
+      <li *ngIf="isLoggedIn" routerLinkActive="active"><a routerLink="new">Neu</a></li>
+      <app-login></app-login>
     </ul>
   </div>
 </nav>

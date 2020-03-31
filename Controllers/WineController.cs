@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Bif4.Koch.WeinVerwaltung.Data;
 using Bif4.Koch.WeinVerwaltung.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bif4.Koch.WeinVerwaltung.Controllers
 {
@@ -46,11 +48,20 @@ namespace Bif4.Koch.WeinVerwaltung.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutWine(int id, Wine wine)
         {
             if (id != wine.Id)
             {
                 return BadRequest();
+            }
+            
+            var claims = User.Claims;
+            var subject = claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+
+            if (wine.UserSubject != subject)
+            {
+                return Forbid();
             }
 
             _context.Entry(wine).State = EntityState.Modified;
@@ -78,9 +89,19 @@ namespace Bif4.Koch.WeinVerwaltung.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Wine>> PostWine(Wine wine)
         {
-            var dateInTz = wine.Harvest.ToUniversalTime();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            
+            var claims = User.Claims as Claim[] ?? User.Claims.ToArray();;
+            wine.UserSubject = claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+            wine.Name = claims.FirstOrDefault(c => c.Type == "name")?.Value;
+            wine.Email = claims.FirstOrDefault(c => c.Type == "email")?.Value;
+
             _context.Wines.Add(wine);
             await _context.SaveChangesAsync();
 
@@ -89,12 +110,21 @@ namespace Bif4.Koch.WeinVerwaltung.Controllers
 
         // DELETE: api/Wine/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<Wine>> DeleteWine(int id)
         {
             var wine = await _context.Wines.FindAsync(id);
             if (wine == null)
             {
                 return NotFound();
+            }
+            
+            var claims = User.Claims;
+            var subject = claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+
+            if (wine.UserSubject != subject)
+            {
+                return Forbid();
             }
 
             _context.Wines.Remove(wine);

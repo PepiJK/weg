@@ -8,16 +8,25 @@
     <th>Typ</th>
     <th>Ernte</th>
     <th>Preis</th>
+    <th>Action</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let wine of wines$ | async" [routerLink]="['/detail', wine.id]" class="wv-cursor-pointer">
+  <tr *ngFor="let wine of wines$ | async">
     <td>{{wine.id}}</td>
     <td>{{wine.title}}</td>
     <td>{{wine.producer}}</td>
     <td>{{wine.type}}</td>
     <td>{{wine.harvest | date : 'd. MMMM yyyy'}}</td>
     <td>{{wine.price | currency : 'EUR'}}</td>
+    <td class="wv-td-flex">
+      <div [routerLink]="['/detail', wine.id]" class="wv-cursor-pointer wv-view">
+        <span class="material-icons">remove_red_eye</span>
+      </div>
+      <div *ngIf="canModify(wine)" (click)="deleteItem(wine)" class="wv-cursor-pointer">
+        <span class="material-icons red-text">delete</span>
+      </div>
+    </td>
   </tr>
   </tbody>
 </table>

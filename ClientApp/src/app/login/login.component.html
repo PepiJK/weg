@@ -1,0 +1,9 @@
+<li *ngIf="!isLoggedIn">
+  <a (click)="login()">Login</a>
+</li>
+<li *ngIf="isLoggedIn" class="wv-loggedin hide-on-med-and-down">
+  <span>Logged in as {{userName}} <span *ngIf="userEmail">({{userEmail}})</span></span>
+</li>
+<li *ngIf="isLoggedIn">
+  <a (click)="logout()">Logout</a>
+</li>
